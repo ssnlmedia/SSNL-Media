@@ -1,36 +1,521 @@
-const menuBtn = document.getElementById("menuBtn");
-const nav = document.getElementById("nav");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-menuBtn.addEventListener("click", function () {
-  nav.classList.toggle("active");
-});
+html {
+  scroll-behavior: smooth;
+}
 
-const links = document.querySelectorAll(".nav a");
+body {
+  background: #ffffff;
+  color: #050505;
+  font-family: 'Montserrat', sans-serif;
+}
 
-links.forEach(function (link) {
-  link.addEventListener("click", function () {
-    nav.classList.remove("active");
-  });
-});
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 22px 7%;
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid #e8e8e8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-const packageButtons = document.querySelectorAll(".package-btn");
-const selectedPackage = document.getElementById("selectedPackage");
-const packageCards = document.querySelectorAll(".package-card");
+.logo {
+  width: 180px;
+}
 
-packageButtons.forEach(function (button) {
-  button.addEventListener("click", function () {
-    const packageName = button.getAttribute("data-package");
+.nav {
+  display: flex;
+  gap: 28px;
+}
 
-    selectedPackage.value = packageName;
+.nav a {
+  color: #050505;
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
 
-    packageCards.forEach(function (card) {
-      card.classList.remove("selected");
-    });
+.nav a:hover {
+  opacity: 0.5;
+}
 
-    button.parentElement.classList.add("selected");
+.menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 28px;
+}
 
-    document.getElementById("contact").scrollIntoView({
-      behavior: "smooth"
-    });
-  });
-});
+.hero {
+  min-height: 90vh;
+  padding: 80px 7%;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  background: linear-gradient(135deg, #ffffff 0%, #f4f4f4 45%, #ffffff 100%);
+}
+
+.small {
+  font-size: 12px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #777;
+  margin-bottom: 20px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+h1 {
+  font-size: 88px;
+  line-height: 0.95;
+  max-width: 850px;
+  margin-bottom: 28px;
+  font-weight: 600;
+}
+
+.hero-text {
+  max-width: 620px;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #444;
+  margin-bottom: 35px;
+}
+
+.buttons {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 15px 30px;
+  text-decoration: none;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.dark-btn {
+  background: #050505;
+  color: #ffffff;
+}
+
+.light-btn {
+  border: 1px solid #050505;
+  color: #050505;
+}
+
+.hero-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-right img {
+  width: 85%;
+  max-width: 430px;
+}
+
+.intro {
+  padding: 100px 14%;
+  text-align: center;
+  background: #050505;
+  color: white;
+}
+
+.intro h2 {
+  font-size: 54px;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.intro p {
+  color: #d0d0d0;
+  font-size: 17px;
+  line-height: 1.8;
+  max-width: 760px;
+  margin: auto;
+}
+
+.section {
+  padding: 100px 7%;
+}
+
+.black {
+  background: #050505;
+  color: white;
+}
+
+.section h2 {
+  font-size: 58px;
+  line-height: 1;
+  margin-bottom: 45px;
+  max-width: 850px;
+}
+
+.white-small {
+  color: #aaa;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #e6e6e6;
+  padding: 38px;
+  min-height: 250px;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  border-color: #050505;
+}
+
+.card span {
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: #777;
+}
+
+.card h3 {
+  font-size: 34px;
+  margin: 22px 0 16px;
+}
+
+.card p {
+  color: #555;
+  line-height: 1.8;
+}
+
+.package-card {
+  background: #ffffff;
+  color: #050505;
+  padding: 40px;
+  min-height: 330px;
+  border: 1px solid #ffffff;
+  transition: 0.3s;
+}
+
+.package-card:hover,
+.package-card.selected {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 80px rgba(255, 255, 255, 0.15);
+}
+
+.package-card h3 {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.package-card h4 {
+  font-size: 18px;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+.package-card ul {
+  list-style: none;
+  margin-bottom: 28px;
+}
+
+.package-card li {
+  margin-bottom: 12px;
+  color: #444;
+}
+
+.package-btn,
+.package-card a {
+  display: inline-block;
+  text-decoration: none;
+  background: #050505;
+  color: white;
+  padding: 13px 28px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+}
+
+.white-note {
+  color: #ccc;
+  margin-top: 35px;
+  max-width: 720px;
+  line-height: 1.8;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 25px;
+}
+
+.portfolio-item {
+  border-top: 1px solid #050505;
+  padding: 35px 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.portfolio-item h3 {
+  font-size: 42px;
+}
+
+.portfolio-item p {
+  max-width: 420px;
+  color: #555;
+  line-height: 1.7;
+}
+
+.process {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+.process div {
+  border-top: 1px solid #777;
+  padding-top: 24px;
+}
+
+.process h3 {
+  font-size: 42px;
+  margin-bottom: 15px;
+}
+
+.process p {
+  color: #ccc;
+  line-height: 1.8;
+}
+
+.contact {
+  background: #f7f7f7;
+}
+
+.inquiry-form {
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.form-block {
+  background: #ffffff;
+  border: 1px solid #dedede;
+  padding: 32px;
+}
+
+.form-block h3 {
+  font-size: 34px;
+  margin-bottom: 22px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 18px;
+  background: #ffffff;
+  color: #050505;
+  border: 1px solid #cfcfcf;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  margin-bottom: 14px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #777;
+}
+
+select option {
+  background: #ffffff;
+  color: #050505;
+}
+
+textarea {
+  min-height: 170px;
+  resize: vertical;
+}
+
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.checkbox-grid label {
+  border: 1px solid #d8d8d8;
+  padding: 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.checkbox-grid input {
+  width: auto;
+  margin-right: 8px;
+  margin-bottom: 0;
+}
+
+.upload-note {
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+button[type="submit"] {
+  background: #050505;
+  color: white;
+  border: none;
+  padding: 18px;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.deposit {
+  margin-top: 25px;
+  color: #555;
+  max-width: 780px;
+  line-height: 1.8;
+}
+
+.faq {
+  background: #ffffff;
+}
+
+.faq-list {
+  max-width: 900px;
+}
+
+details {
+  border-top: 1px solid #050505;
+  padding: 24px 0;
+}
+
+summary {
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+details p {
+  margin-top: 14px;
+  color: #555;
+  line-height: 1.8;
+}
+
+footer {
+  padding: 70px 7%;
+  background: #050505;
+  color: white;
+  text-align: center;
+}
+
+footer img {
+  width: 80px;
+  margin-bottom: 22px;
+}
+
+footer p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+}
+
+footer span {
+  display: block;
+  color: #aaa;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+footer a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  margin-bottom: 18px;
+}
+
+footer small {
+  color: #aaa;
+}
+
+@media (max-width: 900px) {
+  .menu-btn {
+    display: block;
+  }
+
+  .nav {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    margin-top: 25px;
+  }
+
+  .nav.active {
+    display: flex;
+  }
+
+  .header {
+    flex-wrap: wrap;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  h1 {
+    font-size: 56px;
+  }
+
+  .section h2,
+  .intro h2 {
+    font-size: 42px;
+  }
+
+  .cards,
+  .process,
+  .checkbox-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-item {
+    flex-direction: column;
+  }
+}.upload-btn {
+  display: inline-block;
+  background: #050505;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 15px 28px;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  transition: 0.3s;
+}
+
+.upload-btn:hover {
+  opacity: 0.85;
+}
