@@ -503,4 +503,19 @@ footer small {
   .portfolio-item {
     flex-direction: column;
   }
+}.upload-btn {
+  display: inline-block;
+  background: #050505;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 15px 28px;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  transition: 0.3s;
+}
+
+.upload-btn:hover {
+  opacity: 0.85;
 }
